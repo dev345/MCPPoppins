@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MCPoppins — Live Agent Chat</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,sans-serif;background:#08081a;color:#e2e2ef;min-height:100vh;display:flex;flex-direction:column}
+.hdr{padding:14px 24px;background:#0d0d24;border-bottom:1px solid #1c1c3a;display:flex;align-items:center;gap:14px}
+.hdr .logo{width:36px;height:36px;background:linear-gradient(135deg,#2457ff,#6d4aff);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:#fff}
+.hdr h1{font-size:17px;font-weight:700}.hdr h1 span{color:#6d4aff;font-weight:400;font-size:13px;margin-left:6px}
+.hdr .badge{margin-left:auto;font-size:11px;padding:5px 12px;border-radius:99px;font-weight:600}
+.badge.ok{background:#0a2e1c;color:#34d399;border:1px solid #155e3a}
+.badge.off{background:#2e0a0a;color:#f87171;border:1px solid #5e1515}
+.msgs{flex:1;overflow-y:auto;padding:20px 24px;display:flex;flex-direction:column;gap:14px}
+.m{max-width:82%;padding:14px 18px;border-radius:14px;font-size:13.5px;line-height:1.7;word-break:break-word}
+.m.u{align-self:flex-end;background:linear-gradient(135deg,#2457ff,#3b6aff);color:#fff;border-bottom-right-radius:4px;box-shadow:0 2px 12px rgba(36,87,255,.25)}
+.m.b{align-self:flex-start;background:#12122a;border:1px solid #1c1c3a;border-bottom-left-radius:4px}
+.m.b .label{display:flex;align-items:center;gap:8px;margin-bottom:10px;font-size:11px;color:#8888aa;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.m.b .label .dot{width:8px;height:8px;background:#34d399;border-radius:50%;display:inline-block}
+.m.b .body{white-space:pre-wrap}.m.b .body strong{color:#a0a0ff}
+.m .meta{font-size:10.5px;color:#5a5a7a;margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+.m .meta span{background:#0a0a1a;padding:3px 9px;border-radius:6px;border:1px solid #1a1a30}
+.m .meta .src{color:#34d399;border-color:#155e3a}.m .meta .tm{color:#fbbf24}
+.sug{display:flex;gap:8px;flex-wrap:wrap;padding:4px 24px 10px}
+.sug button{background:#12122a;border:1px solid #1c1c3a;color:#9090b0;padding:7px 16px;border-radius:99px;font-size:12px;cursor:pointer;transition:all .15s}
+.sug button:hover{background:#2457ff;color:#fff;border-color:#2457ff;transform:translateY(-1px);box-shadow:0 2px 8px rgba(36,87,255,.3)}
+.bar{padding:14px 24px;background:#0d0d24;border-top:1px solid #1c1c3a;display:flex;gap:10px}
+.bar input{flex:1;background:#12122a;border:1px solid #1c1c3a;color:#e2e2ef;padding:13px 18px;border-radius:12px;font-size:14px;outline:none;transition:border .15s}
+.bar input:focus{border-color:#2457ff;box-shadow:0 0 0 3px rgba(36,87,255,.15)}
+.bar input::placeholder{color:#4a4a6a}
+.bar button{background:linear-gradient(135deg,#2457ff,#3b6aff);color:#fff;border:none;padding:13px 22px;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;transition:all .15s}
+.bar button:hover{transform:translateY(-1px);box-shadow:0 2px 12px rgba(36,87,255,.4)}
+.bar button:disabled{opacity:.4;transform:none}
+.typ{align-self:flex-start;padding:14px 18px;background:#12122a;border:1px solid #1c1c3a;border-radius:14px;font-size:13px;color:#6d4aff;display:flex;align-items:center;gap:8px}
+.typ .dots{display:flex;gap:4px}.typ .dots i{width:6px;height:6px;background:#6d4aff;border-radius:50%;animation:pulse 1.2s infinite}
+.typ .dots i:nth-child(2){animation-delay:.2s}.typ .dots i:nth-child(3){animation-delay:.4s}
+@keyframes pulse{0%,80%,100%{opacity:.3}40%{opacity:1}}
+.foot{text-align:center;padding:10px;font-size:11px;color:#3a3a5a;background:#08081a}
+.foot a{color:#6d4aff;text-decoration:none;margin:0 6px}.foot a:hover{color:#2457ff}
+.welcome{text-align:center;padding:30px 20px}
+.welcome h2{font-size:20px;font-weight:700;margin-bottom:6px}
+.welcome h2 em{color:#6d4aff;font-style:normal}
+.welcome p{color:#6a6a8a;font-size:13px;margin-top:4px}
+.welcome .chips{display:flex;gap:8px;justify-content:center;margin-top:16px;flex-wrap:wrap}
+.welcome .chips span{background:#12122a;border:1px solid #1c1c3a;padding:4px 12px;border-radius:8px;font-size:11px;color:#6a6a8a}
+</style>
+</head>
+<body>
+<div class="hdr"><div class="logo">MP</div><h1>MCPoppins <span>Agent Chat</span></h1><div class="badge off" id="st">Connecting...</div></div>
+<div class="msgs" id="msgs"><div class="welcome"><h2>Connect. Ask. <em>Act safely.</em></h2><p>Talk to your Jira and Confluence through a governed AI gateway.</p><div class="chips"><span>AI routing optional</span><span>Read-only default</span><span>Audit trail</span><span>Cross-system workflows</span></div></div></div>
+<div class="sug" id="sug"><button onclick="go('show my issues')">My issues</button><button onclick="go('project status')">Project status</button><button onclick="go('high priority issues')">Critical issues</button><button onclick="go('search confluence for architecture')">Search docs</button><button onclick="go('help')">Help</button></div>
+<div class="bar"><input id="inp" placeholder="Ask anything about your Jira or Confluence..." autocomplete="off"><button id="btn" onclick="go()">Send</button></div>
+<div class="foot"><a href="/health" target="_blank">Health</a><a href="/tools" target="_blank">Tools</a><a href="/">Website</a></div>
+<script>
+const G=location.origin,uid="demo-"+Math.random().toString(36).slice(2,8),ms=document.getElementById("msgs"),inp=document.getElementById("inp"),sg=document.getElementById("sug"),st=document.getElementById("st"),btn=document.getElementById("btn");
+fetch(G+"/health").then(r=>r.json()).then(d=>{st.textContent=d.tools?d.tools+" tools · "+(d.connectors?.jira?"Jira":"")+(d.connectors?.confluence?" + Confluence":""):"Online · Connectors not configured";st.className="badge ok"}).catch(()=>{st.textContent="Offline";st.className="badge off"});
+inp.onkeypress=e=>{if(e.key==="Enter"&&!btn.disabled)go()};
+async function go(t){
+  const m=t||inp.value.trim();if(!m||btn.disabled)return;
+  inp.value="";sg.replaceChildren();add(m,"u");const ty=add("Thinking...","typ");btn.disabled=true;
+  try{
+    const response=await fetch(G+"/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({message:m,channel:"web",userId:uid}),signal:AbortSignal.timeout(60000)});
+    const r=await response.json();ty.remove();
+    const d=add(r.reply||r.error||"No response.","b");
+    const meta=document.createElement("div");meta.className="meta";
+    for(const value of [r.intent,r.toolsCalled?.join(", "),r.ms?`${r.ms}ms`:null,r.id?.slice(0,8)]){
+      if(!value)continue;const span=document.createElement("span");span.textContent=value;meta.appendChild(span);
+    }
+    d.appendChild(meta);
+    for(const suggestion of r.suggestions||[]){const button=document.createElement("button");button.textContent=suggestion;button.onclick=()=>go(suggestion);sg.appendChild(button);}
+  }catch(e){ty.remove();add("Error: "+e.message,"b");}
+  btn.disabled=false;ms.scrollTop=ms.scrollHeight;inp.focus();
+}
+function add(t,c){const d=document.createElement("div");d.className="m "+c;d.textContent=t;d.style.whiteSpace="pre-wrap";ms.appendChild(d);ms.scrollTop=ms.scrollHeight;return d}
+</script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+{
+  "name": "@mcp-platform/jira",
+  "version": "1.0.0",
+  "description": "MCP connector for Jira Cloud and Data Center. Search issues, view boards, manage work items, and track projects with approval controls for write operations.",
+  "main": "src/index.js",
+  "type": "module",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "doctor": "node src/doctor.js",
+    "test": "node --test tests/unit.test.js"
+  },
+  "files": [
+    "src/",
+    "docs/",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md",
+    "SECURITY.md",
+    ".env.example"
+  ],
+  "keywords": [
+    "mcp",
+    "jira",
+    "atlassian",
+    "connector",
+    "ai",
+    "model-context-protocol",
+    "project-management"
+  ],
+  "license": "SEE LICENSE IN LICENSE",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "zod": "^3.23.0"
+  }
+}

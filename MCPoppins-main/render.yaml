@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: mcpoppins
+    runtime: node
+    plan: free
+    buildCommand: npm ci --prefix apps/gateway && npm ci --include=dev --prefix website && npm run build --prefix website
+    startCommand: node apps/gateway/src/index.js
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: NODE_ENV
+        value: production
+      - key: PUBLIC_ACCESS
+        value: "true"
+      - key: GATEWAY_SECRET
+        generateValue: true
+      - key: JIRA_ENABLE_WRITES
+        value: "false"
+      - key: CONFLUENCE_ENABLE_WRITES
+        value: "false"

@@ -1,0 +1,11 @@
+{
+  "name": "@mcp-platform/gateway",
+  "version": "1.0.0",
+  "description": "MCP Gateway — HTTP server exposing Jira and Confluence tools to Teams, Slack, and web chat.",
+  "main": "src/index.js",
+  "type": "module",
+  "engines": { "node": ">=18.0.0" },
+  "scripts": { "start": "node src/index.js", "dev": "node --watch src/index.js" },
+  "dependencies": { "express": "^4.21.0", "cors": "^2.8.5" },
+  "overrides": { "qs": "^6.16.0" }
+}

@@ -1,0 +1,24 @@
+# MCP Platform — Local Development Compose
+# Copy to docker-compose.yml and fill in your credentials
+version: "3.8"
+services:
+  jira-mcp:
+    build: ./packages/mcp-jira
+    container_name: mcp-jira
+    environment:
+      - JIRA_BASE_URL=https://your-domain.atlassian.net
+      - JIRA_PAT=YOUR_TOKEN_HERE
+      - JIRA_EMAIL=you@example.com
+      - JIRA_ENABLE_WRITES=false
+    stdin_open: true
+    restart: unless-stopped
+  confluence-mcp:
+    build: ./packages/mcp-confluence
+    container_name: mcp-confluence
+    environment:
+      - CONFLUENCE_BASE_URL=https://your-domain.atlassian.net/wiki
+      - CONFLUENCE_PAT=YOUR_TOKEN_HERE
+      - CONFLUENCE_EMAIL=you@example.com
+      - CONFLUENCE_ENABLE_WRITES=false
+    stdin_open: true
+    restart: unless-stopped

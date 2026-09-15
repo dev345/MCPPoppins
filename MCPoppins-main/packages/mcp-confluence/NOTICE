@@ -1,0 +1,10 @@
+MCP Platform — Confluence Connector
+Copyright (c) 2026 MCP Platform Contributors
+
+Third-party dependencies:
+
+@modelcontextprotocol/sdk - MIT License
+  Copyright (c) Anthropic, PBC
+
+zod - MIT License
+  Copyright (c) Colin McDonnell

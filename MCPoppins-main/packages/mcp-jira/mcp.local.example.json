@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "jira": {
+      "command": "node",
+      "args": ["PATH/TO/mcp-platform/packages/mcp-jira/src/index.js"],
+      "env": {
+        "JIRA_BASE_URL": "https://your-domain.atlassian.net",
+        "JIRA_PAT": "YOUR_TOKEN_HERE",
+        "JIRA_EMAIL": "you@example.com",
+        "JIRA_PROJECT_KEY": "",
+        "JIRA_ENABLE_WRITES": "false",
+        "JIRA_ALLOWED_PROJECTS": "",
+        "JIRA_REQUEST_TIMEOUT": "30000",
+        "JIRA_MAX_RESULTS": "25"
+      },
+      "disabled": false
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "confluence": {
+      "command": "node",
+      "args": ["PATH/TO/mcp-platform/packages/mcp-confluence/src/index.js"],
+      "env": {
+        "CONFLUENCE_BASE_URL": "https://your-domain.atlassian.net/wiki",
+        "CONFLUENCE_PAT": "YOUR_TOKEN_HERE",
+        "CONFLUENCE_EMAIL": "you@example.com",
+        "CONFLUENCE_ENABLE_WRITES": "false",
+        "CONFLUENCE_REQUEST_TIMEOUT": "30000",
+        "CONFLUENCE_MAX_RESULTS": "25"
+      },
+      "disabled": false
+    }
+  }
+}

@@ -1,0 +1,12 @@
+import Link from "next/link";
+
+const models = [
+  { name: "Local connector kits", for: "Repository packages", status: "Inspect the source", desc: "Run the Jira and Confluence stdio packages in a supported MCP client.", features: ["npm, ZIP and Docker paths", "Read-only default", "Local environment variables", "Package security guide"], href: "/marketplace", action: "Explore connectors" },
+  { name: "Governed gateway", for: "Web and shared access", status: "Terms not published", desc: "Use the existing gateway architecture to expose approved tools over HTTP.", features: ["Per-user identity", "Approval controls", "Correlation IDs", "Audit-ready responses"], href: "/docs#gateway", action: "Read gateway guide" },
+  { name: "Channel adapters", for: "Teams, Slack and Web Chat", status: "Terms not published", desc: "Connect communication channels through the gateway setup guides.", features: ["Repository setup guides", "Channel-specific identity", "Shared connector catalogue", "No credentials in this UI"], href: "/docs#channels", action: "Open channel guides" },
+  { name: "Private deployment", for: "Organisation-managed runtime", status: "Terms not published", desc: "Evaluate deployment and governance requirements against the repository controls.", features: ["Customer-managed secrets", "Project allowlists", "No TLS bypass", "Explicit write enablement"], href: "/trust", action: "Review controls" }
+];
+
+export default function PricingPage() {
+  return <><section className="page-hero"><div className="shell"><span className="eyebrow">Commercial model</span><h1>Pricing is not published in this repository.</h1><p>This prototype does not invent prices, free tiers or sales promises. It presents the operating models supported by the source material and links to the evidence available today.</p></div></section><section className="section shell"><div className="pricing-grid">{models.map((model) => <article key={model.name}><span className="micro-label">{model.for}</span><h2>{model.name}</h2><strong className="plan-price">{model.status}</strong><p>{model.desc}</p><ul>{model.features.map((feature) => <li key={feature}>✓ {feature}</li>)}</ul><Link className="button button-ghost" href={model.href}>{model.action}</Link></article>)}</div><div className="pricing-note"><strong>Source-faithful boundary</strong><span>No checkout</span><span>No fabricated currency</span><span>No invented service level</span><span>No credential collection</span></div></section></>;
+}
